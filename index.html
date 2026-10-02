@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calle Ocho Sessions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Limelight&family=Yellowtail&family=Figtree:wght@400;500;700&family=DM+Mono:wght@500&display=swap">
+<style>
+/* Layout: a night-time café bandstand. Awning and string lights up top, a neon sign, the band leader's console (style, clave, key, parts), then the band in four sections. Single committed dark look; the room lights up with the music. */
+@property --energy { syntax: "<number>"; inherits: true; initial-value: 0.15; }
+:root {
+  color-scheme: dark;
+  --energy: 0.15;
+  --night: #12242b;
+  --night-2: #1a323b;
+  --night-3: #234450;
+  --line: #2f5462;
+  --text: #f1e9da;
+  --muted: #a9bcbd;
+  --flamingo: #f2a3b5;
+  --mint: #93d6bf;
+  --mango: #f5c35c;
+  --sky: #8cc4ea;
+  --skin: #ead5a9;
+  --skin-dark: #c9ab74;
+  --wood: #9b5530;
+  --chrome: #b8c7cd;
+  --neon-core: #fff3f6;
+  --font-display: "Limelight", "Didot", Georgia, serif;
+  --font-neon: "Yellowtail", "Brush Script MT", cursive;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "DM Mono", ui-monospace, Menlo, monospace;
+  transition: --energy .7s ease;
+}
+* { box-sizing: border-box; }
+html { background: var(--night); }
+body {
+  color: var(--text); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  background:
+    radial-gradient(ellipse 90% 45% at 50% 0%, color-mix(in srgb, var(--mango) calc(var(--energy) * 20%), transparent), transparent 75%),
+    radial-gradient(ellipse 60% 40% at 85% 12%, color-mix(in srgb, var(--flamingo) calc(var(--energy) * 16%), transparent), transparent 70%),
+    var(--night);
+  background-attachment: fixed;
+}
+.awning {
+  height: 14px;
+  background: repeating-linear-gradient(90deg, var(--flamingo) 0 44px, var(--mint) 44px 88px, var(--mango) 88px 132px, var(--sky) 132px 176px);
+  -webkit-mask: radial-gradient(circle at 22px 0, #000 22px, transparent 23px) 0 0 / 44px 14px repeat-x;
+          mask: radial-gradient(circle at 22px 0, #000 22px, transparent 23px) 0 0 / 44px 14px repeat-x;
+}
+.lights { position: relative; height: 50px; margin-top: -4px; overflow: hidden; }
+.lights svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.bulb { position: absolute; width: 11px; height: 15px; border-radius: 50% 50% 46% 46%; transform: translateX(-50%); background: color-mix(in srgb, var(--c) 22%, var(--night-3)); transition: background .4s, box-shadow .4s, filter .15s; }
+.bulb::before { content: ""; position: absolute; top: -4px; left: 3px; width: 5px; height: 5px; border-radius: 1px; background: var(--line); }
+.bulb.on { background: var(--c); box-shadow: 0 0 8px 2px color-mix(in srgb, var(--c) 70%, transparent), 0 0 22px 6px color-mix(in srgb, var(--c) 28%, transparent); }
+.lights.beat .bulb.on { filter: brightness(1.35); }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 8px 56px; display: grid; gap: 28px; }
+
+header.top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px 32px; align-items: center; }
+.intro { display: grid; gap: 8px; min-width: 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--mint); }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(40px, 7vw, 76px); line-height: 1; margin: 0; color: var(--flamingo); text-wrap: balance; letter-spacing: .01em; }
+.lede { margin: 0; max-width: 64ch; color: var(--muted); font-size: 16px; }
+kbd { font-family: var(--font-mono); font-size: 12px; background: var(--night-3); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 1px 6px; color: var(--text); }
+
+.cafe { display: grid; gap: 14px; justify-items: center; }
+.neon {
+  border: 2px solid color-mix(in srgb, var(--mint) 80%, transparent); border-radius: 18px; padding: 14px 26px 12px;
+  box-shadow: 0 0 10px color-mix(in srgb, var(--mint) 50%, transparent), inset 0 0 10px color-mix(in srgb, var(--mint) 30%, transparent);
+  text-align: center; transform: rotate(-3deg);
+  filter: brightness(calc(.62 + var(--energy) * .6)) saturate(calc(.7 + var(--energy) * .5));
+}
+.neon b { display: block; font-family: var(--font-neon); font-weight: 400; font-size: clamp(42px, 6vw, 60px); line-height: 1; color: var(--neon-core);
+  text-shadow: 0 0 3px var(--flamingo), 0 0 10px var(--flamingo), 0 0 24px var(--flamingo), 0 0 48px color-mix(in srgb, var(--flamingo) 60%, transparent); }
+.neon span { display: block; margin-top: 4px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .32em; text-transform: uppercase; color: var(--neon-core); text-shadow: 0 0 6px var(--mint), 0 0 14px var(--mint); }
+.neon.pulse { animation: neon .28s ease-out; }
+@keyframes neon { 0% { filter: brightness(1.55) saturate(1.2); } 100% { filter: brightness(calc(.62 + var(--energy) * .6)) saturate(calc(.7 + var(--energy) * .5)); } }
+.horn-groups { display: grid; gap: 22px; }
+.hgroup { display: grid; gap: 10px; }
+.hgroup-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.hint { font-size: 13px; color: var(--muted); flex: 1 1 260px; min-width: 0; }
+.flutebody { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; min-width: 460px; padding: 12px 22px 10px; border-radius: 40px;
+  background: linear-gradient(180deg, var(--chrome), color-mix(in srgb, var(--chrome) 55%, var(--night))); box-shadow: inset 0 2px 0 color-mix(in srgb, var(--text) 60%, transparent), 0 10px 24px rgba(0,0,0,.35); }
+.fk { background: none; border: 0; font: inherit; cursor: pointer; display: grid; justify-items: center; gap: 4px; padding: 2px; border-radius: 10px; color: var(--night); touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+.fk .dot { width: 34px; height: 34px; border-radius: 50%; background: var(--night-3); box-shadow: inset 0 3px 6px rgba(0,0,0,.6), 0 0 0 3px color-mix(in srgb, var(--chrome) 70%, var(--text)); transition: background .08s, box-shadow .08s; }
+.fk .note { font-size: 12px; font-weight: 700; }
+.fk.hit .dot, .fk.held .dot { background: var(--mint); box-shadow: inset 0 2px 4px rgba(0,0,0,.3), 0 0 0 3px var(--text), 0 0 16px var(--mint); }
+.fk:focus-visible { outline: 2px solid var(--mango); outline-offset: 2px; }
+.key { transition: opacity .2s; }
+.kc-flute { opacity: .3; }
+.mode-flute .kc-flute { opacity: 1; }
+.mode-flute #piano .key, .mode-flute #tres .key { opacity: .3; }
+.flute-group { border-top: 1px solid var(--line); padding-top: 18px; }
+
+/* Console */
+.groove { background: var(--night-2); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 16px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.play {
+  font: 700 15px var(--font-body); color: var(--night); background: var(--mango); border: 0; border-radius: 999px;
+  padding: 10px 20px 10px 16px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; flex: none;
+}
+.play svg { width: 14px; height: 14px; }
+.play:hover { filter: brightness(1.07); }
+.play:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+.styles { display: flex; flex-wrap: wrap; gap: 6px; }
+.blurb { margin: 0; color: var(--muted); font-size: 14px; max-width: 75ch; }
+.blurb b { color: var(--text); font-family: var(--font-display); font-weight: 400; font-size: 18px; margin-right: 6px; }
+.ctl { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.ctl-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+select { font: inherit; font-size: 14px; color: var(--text); background: var(--night-3); border: 1px solid var(--line); border-radius: 8px; padding: 5px 8px; }
+select:focus-visible { outline: 2px solid var(--mango); outline-offset: 1px; }
+.tempo { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+.tempo output { font-family: var(--font-mono); color: var(--text); min-width: 7ch; font-variant-numeric: tabular-nums; }
+.tempo input { accent-color: var(--mango); width: 130px; }
+.chip { position: relative; display: inline-block; }
+.chip input { position: absolute; opacity: 0; inset: 0; cursor: pointer; margin: 0; width: 100%; height: 100%; }
+.chip span { display: inline-block; font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+.chip input:checked + span { background: var(--night-3); color: var(--text); border-color: var(--mint); }
+.chip.style input:checked + span { background: var(--flamingo); color: var(--night); border-color: var(--flamingo); font-weight: 700; }
+.chip input:disabled { cursor: not-allowed; }
+.chip input:disabled + span { opacity: .35; }
+.chip input:focus-visible + span { outline: 2px solid var(--mango); outline-offset: 2px; }
+.parts { display: flex; flex-wrap: wrap; gap: 8px; }
+.status { justify-content: space-between; }
+.chords { display: flex; gap: 6px; flex-wrap: wrap; }
+.chord { font-family: var(--font-mono); font-size: 13px; padding: 4px 10px; border-radius: 6px; background: var(--night-3); color: var(--muted); min-width: 52px; text-align: center; transition: background .1s, color .1s; }
+.chord.now { background: var(--mint); color: var(--night); }
+.check { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.check i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); flex: none; transition: background .1s; }
+.check.good i { background: var(--mint); box-shadow: 0 0 8px var(--mint); }
+.check.near i { background: var(--mango); }
+.check.good { color: var(--text); }
+.steps-wrap { overflow-x: auto; }
+.steps { display: grid; grid-template-columns: repeat(16, minmax(14px, 1fr)); gap: 6px; min-width: 300px; }
+.steps .half { grid-column: span 8; font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+.step { height: 16px; border-radius: 4px; background: var(--night-3); transition: background .08s; position: relative; }
+.step.beat::after { content: ""; position: absolute; left: 50%; bottom: -7px; width: 3px; height: 3px; border-radius: 50%; background: var(--muted); transform: translateX(-50%); }
+.step.clave { background: color-mix(in srgb, var(--flamingo) 35%, var(--night-3)); }
+.step.now { background: var(--mint); }
+.step.clave.now { background: var(--flamingo); }
+.step.you { box-shadow: 0 0 0 2px var(--mango); }
+.step.you-good { box-shadow: 0 0 0 2px var(--mint), 0 0 10px var(--mint); }
+
+/* Sections */
+section { display: grid; gap: 14px; }
+.sec-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; margin: 0; color: var(--text); }
+.sec-head p { margin: 0; color: var(--muted); font-size: 14px; }
+.stage { background: var(--night-2); border: 1px solid var(--line); border-radius: 14px; padding: 22px 18px; transition: border-color .5s, box-shadow .5s; }
+.stage.lit { border-color: color-mix(in srgb, var(--mango) 55%, var(--line)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--mango) 25%, transparent), 0 24px 60px -28px color-mix(in srgb, var(--mango) 55%, transparent); }
+
+.drums { display: flex; flex-wrap: wrap; gap: 28px 34px; align-items: flex-end; justify-content: center; }
+.family { display: grid; gap: 10px; justify-items: center; }
+.family-name { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.family-pads { display: flex; gap: 14px; align-items: flex-end; flex-wrap: wrap; justify-content: center; }
+
+.pad { background: none; border: 0; padding: 4px; color: inherit; font: inherit; cursor: pointer; display: grid; justify-items: center; gap: 8px; border-radius: 12px; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+.pad:focus-visible { outline: 2px solid var(--mango); outline-offset: 2px; }
+.head {
+  width: var(--size); max-width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden;
+  background: radial-gradient(circle at 42% 36%, var(--skin) 0 45%, var(--skin-dark) 100%);
+  box-shadow: 0 0 0 7px var(--rim), 0 0 0 9px color-mix(in srgb, var(--rim) 60%, #000), 0 10px 24px rgba(0,0,0,.35);
+  margin: 9px; position: relative;
+}
+.head.slap { background: radial-gradient(circle at 42% 36%, var(--skin) 0 30%, var(--skin-dark) 70%, color-mix(in srgb, var(--flamingo) 50%, var(--skin-dark)) 100%); }
+.head.shell { background: repeating-linear-gradient(90deg, var(--chrome) 0 6px, color-mix(in srgb, var(--chrome) 70%, var(--night)) 6px 9px); border-radius: 10px; aspect-ratio: 1.6; box-shadow: 0 0 0 3px color-mix(in srgb, var(--chrome) 60%, #000), 0 10px 24px rgba(0,0,0,.35); }
+.ripple { position: absolute; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%) scale(.2);
+  background: radial-gradient(circle, color-mix(in srgb, var(--mango) 75%, transparent) 0 30%, transparent 70%); animation: ripple .45s ease-out forwards; }
+@keyframes ripple { to { transform: translate(-50%, -50%) scale(1); opacity: 0; } }
+.label { display: grid; justify-items: center; gap: 4px; text-align: center; }
+.label b { font-weight: 700; font-size: 14px; }
+.label small { color: var(--muted); font-size: 12px; line-height: 1.2; }
+.key { font-family: var(--font-mono); font-size: 12px; min-width: 24px; padding: 1px 6px; border-radius: 5px; background: var(--night-3); border: 1px solid var(--line); border-bottom-width: 2px; color: var(--text); }
+
+.pad.hit .head, .pad.hit .art { animation: pop .22s ease-out; }
+.pad.hit .key, .k.hit .key { background: var(--mango); color: var(--night); border-color: var(--mango); }
+@keyframes pop { 0% { transform: scale(.92); filter: brightness(1.3); } 100% { transform: scale(1); filter: none; } }
+
+.small-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+.small-grid .pad { background: var(--night-3); border: 1px solid var(--line); padding: 14px 10px 12px; }
+.small-grid .pad:hover { border-color: var(--mint); }
+.art { width: 72px; height: 56px; }
+
+/* Harmony */
+.harmony { display: grid; gap: 22px; }
+.inst-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.inst-head b { font-family: var(--font-display); font-weight: 400; font-size: 20px; }
+.inst-head span { color: var(--muted); font-size: 13px; }
+.scroll { overflow-x: auto; padding-bottom: 4px; }
+.piano { display: flex; gap: 4px; min-width: 420px; }
+.k { flex: 1; border: 0; font: inherit; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+.piano .k { height: 150px; border-radius: 0 0 8px 8px; background: linear-gradient(var(--text), color-mix(in srgb, var(--text) 85%, var(--night))); color: var(--night); display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; padding-bottom: 10px; box-shadow: inset 0 -5px 0 color-mix(in srgb, var(--text) 70%, var(--night)); }
+.piano .k .note { font-size: 12px; font-weight: 700; }
+.piano .k.hit { background: var(--mango); box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--mango) 70%, #000); }
+.neck { position: relative; display: grid; grid-template-columns: repeat(var(--n), 1fr); min-width: 420px; border-radius: 10px; overflow: hidden; }
+.neck::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: repeating-linear-gradient(180deg, transparent 0 calc(var(--gap) - 1px), color-mix(in srgb, var(--chrome) 80%, transparent) calc(var(--gap) - 1px) var(--gap)); background-position: 0 calc(var(--gap) / 2); }
+.neck .k { position: relative; height: 104px; color: var(--text); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; border-right: 3px solid color-mix(in srgb, var(--chrome) 55%, #000); }
+.neck .k:last-child { border-right: 0; }
+.neck .k .note { font-weight: 700; font-size: 14px; position: relative; z-index: 2; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+.neck .k .key { position: relative; z-index: 2; }
+.tres { --n: 7; --gap: 26px; }
+.tres .k { background: linear-gradient(90deg, #6b3a1f, #7d4626); }
+.bass { --n: 5; --gap: 34px; }
+.bass .k { background: linear-gradient(90deg, #2b1a12, #3a241a); height: 120px; }
+.neck .k.hit { background: color-mix(in srgb, var(--mango) 55%, #6b3a1f); }
+.bass .k.hit { background: color-mix(in srgb, var(--mint) 45%, #2b1a12); }
+.k:focus-visible { outline: 2px solid var(--mango); outline-offset: -3px; }
+
+footer { color: var(--muted); font-size: 13px; max-width: 75ch; }
+
+@media (max-width: 760px) {
+  header.top { grid-template-columns: 1fr; }
+  .cafe { justify-items: start; }
+}
+@media (max-width: 640px) {
+  .drums { gap: 22px; }
+  .head { --size: calc(var(--s) * .78) !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pad.hit .head, .pad.hit .art, .neon.pulse, .ripple { animation: none; }
+  .ripple { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="awning" aria-hidden="true"></div>
+<div class="lights" id="lights" aria-hidden="true">
+  <svg viewBox="0 0 1000 50" preserveAspectRatio="none"><path d="M0 4 Q250 52 500 4 Q750 52 1000 4" fill="none" stroke="var(--line)" stroke-width="1.5" vector-effect="non-scaling-stroke"/></svg>
+</div>
+
+<div class="wrap">
+  <header class="top">
+    <div class="intro">
+      <div class="eyebrow">Little Havana · Calle Ocho, Miami</div>
+      <h1>Calle Ocho Sessions</h1>
+      <p class="lede">Sit in with the café band. Click an instrument, or play it with the key shown under it. Hit a drum near the rim for a louder stroke, near the center for a softer one. Hold <kbd>Shift</kbd> for ghost notes. <kbd>Space</kbd> starts and stops the band.</p>
+    </div>
+    <aside class="cafe">
+      <div class="neon" id="neon"><b>Café Cubano</b><span>Música en vivo</span></div>
+    </aside>
+  </header>
+
+  <div class="groove" aria-label="Band leader console">
+    <div class="row">
+      <button class="play" id="play" type="button" aria-pressed="false">
+        <svg viewBox="0 0 14 14" aria-hidden="true"><path id="playIcon" d="M2 1 L13 7 L2 13 Z" fill="currentColor"/></svg>
+        <span id="playLabel">Start the band</span>
+      </button>
+      <div class="styles" id="styles" role="radiogroup" aria-label="Rhythm style"></div>
+    </div>
+    <p class="blurb" id="blurb"></p>
+    <div class="row">
+      <div class="ctl" role="radiogroup" aria-label="Clave direction">
+        <span class="ctl-label" id="claveType">Son clave</span>
+        <label class="chip"><input type="radio" name="dir" value="32" id="dir32" checked><span>3‑2</span></label>
+        <label class="chip"><input type="radio" name="dir" value="23" id="dir23"><span>2‑3</span></label>
+      </div>
+      <label class="ctl" for="key"><span class="ctl-label">Key</span><select id="key"></select></label>
+      <label class="ctl" for="prog"><span class="ctl-label">Chords</span><select id="prog"></select></label>
+      <label class="tempo" for="tempo"><span class="ctl-label">Tempo</span>
+        <input type="range" id="tempo" min="70" max="140" value="98">
+        <output id="tempoOut" for="tempo">98 BPM</output>
+      </label>
+    </div>
+    <div class="parts" id="parts" role="group" aria-label="Parts in the band"></div>
+    <div class="row status">
+      <div class="chords" id="chords" aria-label="Chord progression"></div>
+      <div class="check" id="check" aria-live="polite"><i></i><span id="checkText">Clave check: start the band and play along. Hits on a clave stroke glow green.</span></div>
+    </div>
+    <div class="steps-wrap">
+      <div class="steps" id="steps">
+        <div class="half" id="half1">3 side</div><div class="half" id="half2">2 side</div>
+      </div>
+    </div>
+  </div>
+
+  <section aria-labelledby="h-cueros">
+    <div class="sec-head"><h2 id="h-cueros">Los cueros</h2><p>The skins: congas, bongó and timbales</p></div>
+    <div class="stage drums" id="drums" data-sec="drums"></div>
+  </section>
+
+  <section aria-labelledby="h-small">
+    <div class="sec-head"><h2 id="h-small">Pequeña percusión</h2><p>Wood, metal and seeds</p></div>
+    <div class="stage small-grid" id="small" data-sec="small"></div>
+  </section>
+
+  <section aria-labelledby="h-metales">
+    <div class="sec-head"><h2 id="h-metales">Metales y flauta</h2><p>Trumpets, trombones, saxes and charanga flute. While the band plays, every phrase locks to the next beat.</p></div>
+    <div class="stage horn-groups" id="horns" data-sec="horns"></div>
+  </section>
+
+  <section aria-labelledby="h-arm">
+    <div class="sec-head"><h2 id="h-arm">Armonía</h2><p id="armNote">Notes follow the key you pick and are named the Cuban way: Do, Re, Mi…</p></div>
+    <div class="stage harmony" id="harmony" data-sec="harmony">
+      <div>
+        <div class="inst-head"><b>Piano</b><span>Keys 1 to 0 (flute mode switches them to the flute)</span></div>
+        <div class="scroll"><div class="piano" id="piano"></div></div>
+      </div>
+      <div>
+        <div class="inst-head"><b>Tres cubano</b><span>Three doubled courses · keys Z to M</span></div>
+        <div class="scroll"><div class="neck tres" id="tres"></div></div>
+      </div>
+      <div>
+        <div class="inst-head"><b>Baby bass</b><span>Keys Y to P</span></div>
+        <div class="scroll"><div class="neck bass" id="bass"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Every sound here is synthesized live in your browser, so there is nothing to download. Sound starts on your first click or key press.</footer>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+
+  // ================= Audio engine =================
+  let ctx, bus, noiseBuf;
+  function audio() {
+    if (ctx) { if (ctx.state === "suspended") ctx.resume(); return ctx; }
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = ctx.createDynamicsCompressor();
+    comp.threshold.value = -14; comp.ratio.value = 4; comp.attack.value = .003; comp.release.value = .2;
+    const master = ctx.createGain(); master.gain.value = .9;
+    comp.connect(master).connect(ctx.destination);
+    bus = ctx.createGain(); bus.connect(comp);
+    const len = Math.floor(ctx.sampleRate * 1.6);
+    const ir = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3.2); }
+    const verb = ctx.createConvolver(); verb.buffer = ir;
+    const wet = ctx.createGain(); wet.gain.value = .22;
+    bus.connect(verb).connect(wet).connect(comp);
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+    const nd = noiseBuf.getChannelData(0);
+    for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
+    return ctx;
+  }
+  const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+
+  function env(g, t, peak, atk, dec) {
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(Math.max(peak, 0.0002), t + atk);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + atk + dec);
+  }
+  function tone(t, { f0, f1 = f0, dec, g, type = "sine", glide, dest }) {
+    const o = ctx.createOscillator(), a = ctx.createGain();
+    o.type = type;
+    o.frequency.setValueAtTime(f0, t);
+    if (f1 !== f0) o.frequency.exponentialRampToValueAtTime(f1, t + (glide || dec * .5));
+    env(a, t, g, .002, dec);
+    o.connect(a).connect(dest || bus);
+    o.start(t); o.stop(t + dec + .05);
+  }
+  function noise(t, { type = "bandpass", f, q = .8, dec, g, atk = .001, dest }) {
+    const s = ctx.createBufferSource(); s.buffer = noiseBuf;
+    s.playbackRate.value = .9 + Math.random() * .2;
+    const flt = ctx.createBiquadFilter(); flt.type = type; flt.frequency.value = f; flt.Q.value = q;
+    const a = ctx.createGain(); env(a, t, g, atk, dec);
+    s.connect(flt).connect(a).connect(dest || bus);
+    s.start(t, Math.random()); s.stop(t + atk + dec + .05);
+  }
+  // A hand drum: pitched body + overtone + skin noise. Harder hits get proportionally more skin noise.
+  function drum(t, o, v) {
+    tone(t, { f0: o.f0, f1: o.f1, dec: o.dec, g: o.g * v });
+    tone(t, { f0: o.f0 * 1.52, f1: o.f1 * 1.5, dec: o.dec * .45, g: o.g * .22 * v, type: "triangle" });
+    noise(t, { f: o.nf, dec: o.nd || .03, g: o.ng * v * v * 1.15, q: .9 });
+  }
+  function metal(t, f, dec, g) {
+    [[1, 1], [1.47, .45], [2.09, .3], [2.76, .18]].forEach(([r, a], i) =>
+      tone(t, { f0: f * r * 1.04, f1: f * r, dec: dec / (1 + i * .6), g: g * a, glide: .04 }));
+    noise(t, { f: 3600, q: .7, dec: .08, g: g * .55 });
+  }
+  function bell(t, f1, f2, dec, g) {
+    const flt = ctx.createBiquadFilter(); flt.type = "bandpass"; flt.frequency.value = f2 * 1.25; flt.Q.value = 1.2;
+    const a = ctx.createGain();
+    a.gain.setValueAtTime(0.0001, t);
+    a.gain.exponentialRampToValueAtTime(g, t + .002);
+    a.gain.exponentialRampToValueAtTime(g * .35, t + .03);
+    a.gain.exponentialRampToValueAtTime(0.0001, t + dec);
+    [f1, f2].forEach(f => { const o = ctx.createOscillator(); o.type = "square"; o.frequency.value = f; o.connect(flt); o.start(t); o.stop(t + dec + .05); });
+    flt.connect(a).connect(bus);
+  }
+  function guiro(t, ticks, gap, g) {
+    const s = ctx.createBufferSource(); s.buffer = noiseBuf;
+    const flt = ctx.createBiquadFilter(); flt.type = "bandpass"; flt.frequency.value = 3200; flt.Q.value = 2.5;
+    const a = ctx.createGain(); a.gain.setValueAtTime(0.0001, t);
+    for (let i = 0; i < ticks; i++) {
+      const ti = t + i * gap * (1 + (Math.random() - .5) * .25);
+      a.gain.setValueAtTime(g * (.55 + .45 * Math.sin(Math.PI * (i + .5) / ticks)), ti);
+      a.gain.setTargetAtTime(0.0001, ti + .001, .0035);
+    }
+    s.connect(flt).connect(a).connect(bus);
+    s.start(t, Math.random()); s.stop(t + ticks * gap + .1);
+  }
+  function piano(t, m, vel = 1, len = 2.6) {
+    const f = mtof(m), out = ctx.createGain(); out.gain.value = .2 * vel; out.connect(bus);
+    for (let k = 1; k <= 6; k++) {
+      const o = ctx.createOscillator(), a = ctx.createGain();
+      o.frequency.value = f * k * Math.sqrt(1 + .0004 * k * k);
+      o.detune.value = (Math.random() - .5) * 4;
+      env(a, t, 1 / Math.pow(k, 1.25), .004, Math.min(len, 2.6 / Math.pow(k, .75)));
+      o.connect(a).connect(out); o.start(t); o.stop(t + len + .1);
+    }
+    noise(t, { f: 2000, q: .6, dec: .025, g: .06 * vel });
+  }
+  const ksCache = {};
+  function ks(freq, dur, bright) {
+    const id = freq.toFixed(2) + bright;
+    if (ksCache[id]) return ksCache[id];
+    const sr = ctx.sampleRate, len = Math.floor(sr * dur);
+    const buf = ctx.createBuffer(1, len, sr), y = buf.getChannelData(0);
+    const D = sr / freq - .5, Di = Math.floor(D), fr = D - Di;
+    let last = 0;
+    for (let n = 0; n < len; n++) {
+      if (n < Di + 2) { last = last + bright * ((Math.random() * 2 - 1) - last); y[n] = last; continue; }
+      const a = .5 * (y[n - Di] + y[n - Di - 1]);
+      const b = .5 * (y[n - Di - 1] + y[n - Di - 2]);
+      y[n] = .996 * ((1 - fr) * a + fr * b);
+    }
+    return (ksCache[id] = buf);
+  }
+  function pluck(t, f, g, dur, bright, dest) {
+    const s = ctx.createBufferSource(); s.buffer = ks(f, dur, bright);
+    const a = ctx.createGain(); a.gain.setValueAtTime(g, t); a.gain.setTargetAtTime(0.0001, t + dur - .3, .1);
+    s.connect(a).connect(dest); s.start(t);
+  }
+  function tres(t, m, v = 1) {
+    const shape = ctx.createBiquadFilter(); shape.type = "peaking"; shape.frequency.value = 1700; shape.Q.value = 1.4; shape.gain.value = 7;
+    shape.connect(bus);
+    const f = mtof(m);
+    pluck(t, f, .55 * v, 1.8, .7, shape);
+    pluck(t + .007, m < 65 ? f * 2 : f * 1.003, .38 * v, 1.6, .8, shape); // doubled course
+  }
+  function bassNote(t, m, vel = 1) {
+    const f = mtof(m);
+    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.Q.value = 2;
+    lp.frequency.setValueAtTime(900, t); lp.frequency.exponentialRampToValueAtTime(260, t + .35);
+    const a = ctx.createGain(); env(a, t, .75 * vel, .006, 1.3);
+    [["sine", 1, .9], ["triangle", 1, .6], ["sine", 2, .2]].forEach(([type, r, g]) => {
+      const o = ctx.createOscillator(), og = ctx.createGain(); o.type = type; o.frequency.value = f * r; og.gain.value = g;
+      o.connect(og).connect(lp); o.start(t); o.stop(t + 1.4);
+    });
+    lp.connect(a).connect(bus);
+    noise(t, { type: "lowpass", f: 500, dec: .03, g: .15 * vel });
+  }
+  // Brass voice. o.atk: attack (long = swell), o.bright: filter scale (trombones are darker),
+  // o.fall: semitones to drop after the note, o.shake: lip-shake depth in semitones.
+  function brass(t, m, dur, v = 1, o = {}) {
+    const f = mtof(m), atk = o.atk ?? .02, br = o.bright ?? 1, g = (o.gain ?? 1) * v;
+    const end = t + Math.max(dur, atk + .07), rel = o.fall ? .4 : .09;
+    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.Q.value = 1.5;
+    lp.frequency.setValueAtTime(500 * br, t);
+    lp.frequency.linearRampToValueAtTime((1400 + 3200 * v) * br, t + Math.max(.035, atk));
+    lp.frequency.exponentialRampToValueAtTime((1300 + 900 * v) * br, t + atk + .12);
+    const out = ctx.createGain();
+    out.gain.setValueAtTime(0.0001, t);
+    out.gain.exponentialRampToValueAtTime(.085 * g, t + atk);
+    out.gain.exponentialRampToValueAtTime(.06 * g, t + atk + .06);
+    out.gain.setValueAtTime(.06 * g, end);
+    out.gain.exponentialRampToValueAtTime(0.0001, end + rel);
+    let lfoG;
+    if (o.shake) {
+      const lfo = ctx.createOscillator(); lfo.frequency.value = 7; lfoG = ctx.createGain();
+      lfoG.gain.setValueAtTime(0, t); lfoG.gain.linearRampToValueAtTime(o.shake * 100, t + .18);
+      lfo.connect(lfoG); lfo.start(t); lfo.stop(end + rel + .1);
+    }
+    [-7, 0, 7].forEach(c => {
+      const os = ctx.createOscillator(); os.type = "sawtooth"; os.frequency.value = f;
+      os.detune.setValueAtTime(c - (o.scoop ?? 35), t); os.detune.linearRampToValueAtTime(c, t + .05);
+      if (o.fall) { os.detune.setValueAtTime(c, end); os.detune.linearRampToValueAtTime(c - o.fall * 100, end + rel); }
+      if (lfoG) lfoG.connect(os.detune);
+      os.connect(lp); os.start(t); os.stop(end + rel + .05);
+    });
+    lp.connect(out).connect(bus);
+  }
+  function sax(t, m, dur, v = 1) {
+    const f = mtof(m), end = t + Math.max(dur, .08);
+    const out = ctx.createGain();
+    out.gain.setValueAtTime(0.0001, t);
+    out.gain.exponentialRampToValueAtTime(.07 * v, t + .03);
+    out.gain.setValueAtTime(.06 * v, end);
+    out.gain.exponentialRampToValueAtTime(0.0001, end + .08);
+    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 2400 + 1400 * v;
+    const form = ctx.createBiquadFilter(); form.type = "peaking"; form.frequency.value = 1100; form.Q.value = 1.2; form.gain.value = 8;
+    const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = 5;
+    lg.gain.setValueAtTime(0, t); lg.gain.linearRampToValueAtTime(18, t + .3);
+    lfo.connect(lg); lfo.start(t); lfo.stop(end + .1);
+    [["sawtooth", 1], ["square", .5]].forEach(([type, gg], i) => {
+      const os = ctx.createOscillator(), og = ctx.createGain(); os.type = type; os.frequency.value = f; os.detune.value = i ? 5 : -3; og.gain.value = gg;
+      lg.connect(os.detune); os.connect(og).connect(form); os.start(t); os.stop(end + .1);
+    });
+    form.connect(lp).connect(out).connect(bus);
+    noise(t, { f: 1800, q: 1.5, atk: .02, dec: .06, g: .04 * v });
+  }
+  // Flute voice with an open end, so a held key sustains. Returns { stop(time) }.
+  function fluteStart(t, m, v = 1) {
+    const f = mtof(m), out = ctx.createGain();
+    out.gain.setValueAtTime(0.0001, t);
+    out.gain.exponentialRampToValueAtTime(.15 * v, t + .04);
+    const lfo = ctx.createOscillator(), lg = ctx.createGain(); lfo.frequency.value = 5.3;
+    lg.gain.setValueAtTime(0, t); lg.gain.linearRampToValueAtTime(f * .006, t + .3);
+    lfo.connect(lg);
+    const srcs = [lfo];
+    [["sine", 1, 1], ["sine", 2, .16], ["triangle", 1, .08]].forEach(([type, r, g]) => {
+      const o = ctx.createOscillator(), og = ctx.createGain(); o.type = type; o.frequency.value = f * r; og.gain.value = g;
+      lg.connect(o.frequency); o.connect(og).connect(out); srcs.push(o);
+    });
+    const br = ctx.createBufferSource(); br.buffer = noiseBuf; br.loop = true;
+    const bf = ctx.createBiquadFilter(); bf.type = "bandpass"; bf.frequency.value = f; bf.Q.value = 6;
+    const bg = ctx.createGain(); bg.gain.value = .3;
+    br.connect(bf).connect(bg).connect(out); srcs.push(br);
+    out.connect(bus);
+    srcs.forEach(s => s.start(t));
+    noise(t, { type: "highpass", f: 5000, atk: .01, dec: .05, g: .03 * v }); // chiff
+    let done = false;
+    const stop = t2 => {
+      if (done) return; done = true;
+      t2 = Math.max(t2, t + .06);
+      out.gain.cancelScheduledValues(t2);
+      out.gain.setTargetAtTime(0.0001, t2, .035);
+      srcs.forEach(s => s.stop(t2 + .3));
+    };
+    stop.auto = setTimeout(() => stop(ctx.currentTime), Math.max(0, (t - ctx.currentTime) * 1000) + 6000);
+    return { stop };
+  }
+  function flute(t, m, dur, v = 1) { fluteStart(t, m, v).stop(t + Math.max(dur, .06)); }
+
+  // ================= Key & chords =================
+  const NAMES = ["Do", "Re♭", "Re", "Mi♭", "Mi", "Fa", "Fa♯", "Sol", "La♭", "La", "Si♭", "Si"];
+  const KEYS = [0, 2, 3, 5, 7, 9, 10];
+  const MAJOR = [0, 2, 4, 5, 7, 9, 11], MINOR = [0, 2, 3, 5, 7, 8, 11];
+  const INT = { maj: [0, 4, 7], min: [0, 3, 7], dom7: [0, 4, 10] };
+  const PROGS = [
+    { name: "I–IV–V–IV · son montuno", ch: [[0, "maj"], [5, "maj"], [7, "maj"], [5, "maj"]] },
+    { name: "I–IV–V7–V7 · guajira", ch: [[0, "maj"], [5, "maj"], [7, "dom7"], [7, "dom7"]] },
+    { name: "I–V7–V7–I · two-chord son", ch: [[0, "maj"], [7, "dom7"], [7, "dom7"], [0, "maj"]] },
+    { name: "ii–V7–I–I · bolero turn", ch: [[2, "min"], [7, "dom7"], [0, "maj"], [0, "maj"]] },
+    { name: "i–iv–V7–i · minor montuno", ch: [[0, "min"], [5, "min"], [7, "dom7"], [0, "min"]], minor: true },
+  ];
+  let keyOff = 0, progIdx = 0, chordNow = 0;
+  const prog = () => PROGS[progIdx];
+  const scale = () => prog().minor ? MINOR : MAJOR;
+  const pianoBase = () => keyOff <= 5 ? 60 + keyOff : 48 + keyOff;
+  const bassBase = () => keyOff <= 5 ? 36 + keyOff : 24 + keyOff;
+  const deg = (base, d) => base + scale()[((d % 7) + 7) % 7] + 12 * Math.floor(d / 7);
+  const voicing = ch => INT[ch[1]].map(iv => 60 + (keyOff + ch[0] + iv) % 12).sort((a, b) => a - b);
+  const bassRoot = ch => bassBase() + ch[0];
+  const bassFifth = ch => { const r = bassRoot(ch); return r + 7 > bassBase() + 12 ? r - 5 : r + 7; };
+  const chordName = ch => NAMES[(keyOff + ch[0]) % 12] + (ch[1] === "min" ? "m" : ch[1] === "dom7" ? "7" : "");
+  const curChord = () => prog().ch[chordNow];
+
+  // ================= Instruments =================
+  const drums = [
+    { family: "Congas", pads: [
+      { id: "tumba",  key: "a", name: "Tumba",  sub: "low conga, open", size: 128, rim: "--wood", play: (t, v) => drum(t, { f0: 150, f1: 108, dec: .6, g: .95, nf: 900, ng: .2 }, v) },
+      { id: "conga",  key: "s", name: "Conga",  sub: "open tone", size: 118, rim: "--wood", play: (t, v) => drum(t, { f0: 212, f1: 172, dec: .45, g: .9, nf: 1200, ng: .22 }, v) },
+      { id: "slap",   key: "d", name: "Conga",  sub: "slap", size: 118, rim: "--wood", cls: "slap", play: (t, v) => { drum(t, { f0: 340, f1: 270, dec: .07, g: .45, nf: 2300, ng: .9, nd: .08 }, v); noise(t, { type: "highpass", f: 4000, dec: .03, g: .3 * v }); } },
+      { id: "quinto", key: "f", name: "Quinto", sub: "high conga", size: 104, rim: "--wood", play: (t, v) => drum(t, { f0: 292, f1: 245, dec: .35, g: .85, nf: 1500, ng: .22 }, v) },
+    ]},
+    { family: "Bongó", pads: [
+      { id: "macho",  key: "g", name: "Macho",  sub: "small drum", size: 78, rim: "--flamingo", play: (t, v) => drum(t, { f0: 480, f1: 420, dec: .15, g: .8, nf: 3000, ng: .35, nd: .02 }, v) },
+      { id: "hembra", key: "h", name: "Hembra", sub: "large drum", size: 94, rim: "--flamingo", play: (t, v) => drum(t, { f0: 335, f1: 292, dec: .22, g: .85, nf: 2500, ng: .3, nd: .02 }, v) },
+    ]},
+    { family: "Timbales", pads: [
+      { id: "timhi",   key: "j", name: "Macho",   sub: "high timbal", size: 100, rim: "--chrome", play: (t, v) => metal(t, 520, .55, .55 * v) },
+      { id: "timlo",   key: "k", name: "Hembra",  sub: "low timbal", size: 112, rim: "--chrome", play: (t, v) => metal(t, 390, .65, .6 * v) },
+      { id: "cascara", key: "l", name: "Cáscara", sub: "stick on the shell", size: 92, rim: "--chrome", cls: "shell", play: (t, v) => { noise(t, { f: 4200, q: 2, dec: .045, g: .7 * v }); tone(t, { f0: 1900, dec: .03, g: .25 * v }); } },
+    ]},
+  ];
+  const ridges = c => '<g stroke="' + c + '" stroke-width="2">' + Array.from({ length: 9 }, (_, i) => `<line x1="${16 + i * 5}" y1="18" x2="${16 + i * 5}" y2="38"/>`).join("") + "</g>";
+  const art = {
+    claves: '<svg viewBox="0 0 72 56" class="art"><rect x="6" y="22" width="60" height="9" rx="4.5" fill="var(--mango)" transform="rotate(-18 36 27)"/><rect x="6" y="26" width="60" height="9" rx="4.5" fill="var(--wood)" transform="rotate(14 36 30)"/></svg>',
+    campana: '<svg viewBox="0 0 72 56" class="art"><path d="M22 12 H50 L58 46 H14 Z" fill="var(--chrome)"/><path d="M14 46 H58" stroke="var(--muted)" stroke-width="3"/><rect x="30" y="4" width="12" height="10" rx="2" fill="var(--muted)"/></svg>',
+    mambo: '<svg viewBox="0 0 72 56" class="art"><path d="M18 10 H54 L64 48 H8 Z" fill="var(--mango)"/><path d="M8 48 H64" stroke="var(--wood)" stroke-width="3"/><rect x="30" y="2" width="12" height="10" rx="2" fill="var(--wood)"/></svg>',
+    guiro: '<svg viewBox="0 0 72 56" class="art"><ellipse cx="36" cy="28" rx="32" ry="15" fill="var(--mango)"/>' + ridges("var(--wood)") + '</svg>',
+    guiroL: '<svg viewBox="0 0 72 56" class="art"><ellipse cx="36" cy="28" rx="32" ry="15" fill="var(--mint)"/>' + ridges("var(--night-3)") + '<path d="M8 50 H64" stroke="var(--mint)" stroke-width="2" stroke-dasharray="3 3"/></svg>',
+    maracas: '<svg viewBox="0 0 72 56" class="art"><g transform="rotate(-20 24 28)"><ellipse cx="24" cy="18" rx="12" ry="14" fill="var(--flamingo)"/><rect x="21" y="30" width="6" height="22" rx="3" fill="var(--wood)"/></g><g transform="rotate(20 48 28)"><ellipse cx="48" cy="18" rx="12" ry="14" fill="var(--sky)"/><rect x="45" y="30" width="6" height="22" rx="3" fill="var(--wood)"/></g></svg>',
+    trumpet: '<svg viewBox="0 0 72 56" class="art"><rect x="4" y="26" width="42" height="5" rx="2" fill="var(--mango)"/><path d="M44 22 L68 10 V48 L44 35 Z" fill="var(--mango)"/><rect x="14" y="16" width="4" height="10" fill="var(--chrome)"/><rect x="21" y="16" width="4" height="10" fill="var(--chrome)"/><rect x="28" y="16" width="4" height="10" fill="var(--chrome)"/><path d="M12 31 V40 H36 V31" fill="none" stroke="var(--mango)" stroke-width="4"/></svg>',
+    trumpets: '<svg viewBox="0 0 72 56" class="art"><g><rect x="4" y="14" width="40" height="4" rx="2" fill="var(--mango)"/><path d="M42 11 L62 3 V29 L42 21 Z" fill="var(--mango)"/></g><g><rect x="10" y="36" width="40" height="4" rx="2" fill="var(--flamingo)"/><path d="M48 33 L68 25 V51 L48 43 Z" fill="var(--flamingo)"/></g></svg>',
+    flute: '<svg viewBox="0 0 72 56" class="art"><rect x="2" y="25" width="68" height="7" rx="3.5" fill="var(--chrome)" transform="rotate(-12 36 28)"/><g fill="var(--night-3)" transform="rotate(-12 36 28)"><circle cx="14" cy="28.5" r="2"/><circle cx="32" cy="28.5" r="1.6"/><circle cx="39" cy="28.5" r="1.6"/><circle cx="46" cy="28.5" r="1.6"/><circle cx="55" cy="28.5" r="1.6"/><circle cx="62" cy="28.5" r="1.6"/></g></svg>',
+    fluteRun: '<svg viewBox="0 0 72 56" class="art"><rect x="2" y="30" width="68" height="7" rx="3.5" fill="var(--chrome)" transform="rotate(-12 36 33)"/><path d="M10 6 Q30 4 40 14 T66 22" fill="none" stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 5"/></svg>',
+  };
+  const small = [
+    { id: "claves",  key: "q", name: "Claves",     sub: "the heartbeat", art: art.claves, play: (t, v) => { tone(t, { f0: 2480, dec: .07, g: .7 * v }); tone(t, { f0: 2480 * 2.7, dec: .02, g: .1 * v }); } },
+    { id: "campana", key: "w", name: "Campana",    sub: "bongo bell", art: art.campana, play: (t, v) => bell(t, 587, 845, .35, .5 * v) },
+    { id: "mambo",   key: "e", name: "Mambo bell", sub: "timbale bell", art: art.mambo, play: (t, v) => bell(t, 470, 700, .45, .5 * v) },
+    { id: "guiroS",  key: "r", name: "Güiro",      sub: "short scrape", art: art.guiro, play: (t, v) => guiro(t, 6, .011, .5 * v) },
+    { id: "guiroL",  key: "t", name: "Güiro",      sub: "long scrape", art: art.guiroL, play: (t, v) => guiro(t, 22, .012, .5 * v) },
+    { id: "maracas", key: ";", name: "Maracas",    sub: "a shake", art: art.maracas, play: (t, v) => { noise(t, { type: "highpass", f: 5200, dec: .08, g: .45 * v, atk: .012 }); noise(t + .035, { type: "highpass", f: 6000, dec: .05, g: .25 * v, atk: .008 }); } },
+  ];
+  const stepDur = () => 60 / tempoEl.value / 2;
+  const RIFF = [[0, 7, 1], [1, 7, 1], [2, 8, 1], [3, 7, 1], [5, 4, 1], [6, 5, 1], [7, 4, 2]];
+  const PHRASE = [[0, 11, 1], [1, 12, 1], [2, 11, 1], [3, 9, 2], [5, 10, 1], [6, 11, 1], [7, 7, 2]];
+  Object.assign(art, {
+    fall: '<svg viewBox="0 0 72 56" class="art"><rect x="2" y="16" width="34" height="5" rx="2" fill="var(--mango)"/><path d="M34 12 L52 4 V34 L34 25 Z" fill="var(--mango)"/><path d="M56 12 Q66 22 64 50" fill="none" stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round"/><path d="M58 44 L64 51 L69 44" fill="none" stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    shake: '<svg viewBox="0 0 72 56" class="art"><rect x="4" y="32" width="40" height="5" rx="2" fill="var(--mango)"/><path d="M42 28 L66 16 V54 L42 41 Z" fill="var(--mango)"/><path d="M8 18 l5 -8 l5 8 l5 -8 l5 8 l5 -8 l5 8 l5 -8" fill="none" stroke="var(--flamingo)" stroke-width="2.5" stroke-linejoin="round"/></svg>',
+    trombone: '<svg viewBox="0 0 72 56" class="art"><rect x="4" y="18" width="46" height="4" rx="2" fill="var(--mango)"/><path d="M8 22 V36 H46 V22" fill="none" stroke="var(--mango)" stroke-width="3"/><path d="M48 12 L68 3 V37 L48 28 Z" fill="var(--mango)"/><rect x="2" y="34" width="14" height="5" rx="2" fill="var(--chrome)"/></svg>',
+    swell: '<svg viewBox="0 0 72 56" class="art"><rect x="4" y="12" width="46" height="4" rx="2" fill="var(--flamingo)"/><path d="M8 16 V28 H46 V16" fill="none" stroke="var(--flamingo)" stroke-width="3"/><path d="M48 6 L68 -2 V30 L48 22 Z" fill="var(--flamingo)"/><path d="M8 46 L60 38 M8 46 L60 54" stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round"/></svg>',
+    sax: '<svg viewBox="0 0 72 56" class="art"><path d="M30 8 V34 Q30 50 42 50 Q54 50 54 38 V32" fill="none" stroke="var(--mango)" stroke-width="8" stroke-linecap="round"/><path d="M48 32 L64 22" stroke="var(--mango)" stroke-width="10" stroke-linecap="round"/><path d="M30 8 L20 4" stroke="var(--chrome)" stroke-width="3" stroke-linecap="round"/><g fill="var(--wood)"><circle cx="30" cy="18" r="2"/><circle cx="30" cy="26" r="2"/><circle cx="31" cy="34" r="2"/></g></svg>',
+    fluteDuo: '<svg viewBox="0 0 72 56" class="art"><rect x="2" y="16" width="64" height="6" rx="3" fill="var(--chrome)" transform="rotate(-10 36 19)"/><rect x="6" y="36" width="64" height="6" rx="3" fill="var(--mint)" transform="rotate(-10 36 39)"/><g fill="var(--night-3)"><circle cx="20" cy="19" r="1.5"/><circle cx="32" cy="17" r="1.5"/><circle cx="44" cy="15" r="1.5"/><circle cx="24" cy="40" r="1.5"/><circle cx="36" cy="38" r="1.5"/><circle cx="48" cy="36" r="1.5"/></g></svg>',
+    trill: '<svg viewBox="0 0 72 56" class="art"><rect x="2" y="34" width="68" height="7" rx="3.5" fill="var(--chrome)" transform="rotate(-8 36 37)"/><text x="6" y="22" font-family="Georgia, serif" font-style="italic" font-weight="700" font-size="17" fill="var(--mint)">tr</text><path d="M26 16 q3 -6 6 0 t6 0 t6 0 t6 0 t6 0 t6 0" fill="none" stroke="var(--mint)" stroke-width="2.2"/></svg>',
+  });
+  const BONE_RIFF = [[0, 2, 2], [3, 3, 1], [4, 2, 1], [6, 0, 1], [7, 1, 1], [10, 2, 1], [11, 4, 3], [14, 2, 2]];
+  const SAX_RIFF = [[0, 4, 1], [1, 4, 1], [3, 2, 1], [4, 4, 1], [6, 5, 1], [7, 4, 2], [10, 2, 1], [11, 0, 1], [12, 1, 1], [13, 2, 3]];
+  const pb = () => pianoBase();
+  const hornGroups = [
+    { family: "Trompetas", items: [
+      { id: "stab",  key: ",", name: "Stab",  sub: "punch on the current chord", art: art.trumpet, play: (t, v) => voicing(curChord()).forEach(n => brass(t, n + 12, .16, v)) },
+      { id: "mona",  key: ".", name: "Moña",  sub: "two-trumpet riff", art: art.trumpets, play: (t, v) => { const d = stepDur(); RIFF.forEach(([s, dg, l]) => { brass(t + s * d, deg(pb(), dg), l * d * .75, v * .9); brass(t + s * d, deg(pb(), dg - 2), l * d * .75, v * .65); }); } },
+      { id: "fall",  key: "-", name: "Caída", sub: "chord that falls away", art: art.fall, play: (t, v) => voicing(curChord()).forEach(n => brass(t, n + 12, stepDur() * 1.5, v, { fall: 7 })) },
+      { id: "shake", key: "=", name: "Grito", sub: "high note with a lip shake", art: art.shake, play: (t, v) => { const d = stepDur() * 4; brass(t, deg(pb(), 11), d, v, { shake: 1.6, scoop: 80 }); brass(t, deg(pb(), 9), d, v * .7, { shake: 1.6, scoop: 80 }); } },
+    ]},
+    { family: "Trombones", items: [
+      { id: "bone",  key: "[", name: "Moña de trombones", sub: "low counter-riff, pairs with the trumpet moña", art: art.trombone, play: (t, v) => { const d = stepDur(); BONE_RIFF.forEach(([s, dg, l]) => { brass(t + s * d, deg(pb() - 12, dg), l * d * .8, v, { bright: .6, gain: 1.2 }); brass(t + s * d, deg(pb() - 12, dg - 2), l * d * .8, v * .7, { bright: .55, gain: 1.1 }); }); } },
+      { id: "swell", key: "]", name: "Tutti swell", sub: "the whole section crescendos", art: art.swell, play: (t, v) => { const d = stepDur() * 3; voicing(curChord()).forEach(n => { brass(t, n - 12, d, v, { atk: d * .8, bright: .6, gain: 1.2 }); brass(t, n + 12, d, v * .8, { atk: d * .8 }); }); } },
+    ]},
+    { family: "Saxofones", items: [
+      { id: "saxes", key: "\\", name: "Mambo saxes", sub: "tenor and baritone in octaves", art: art.sax, play: (t, v) => { const d = stepDur(); SAX_RIFF.forEach(([s, dg, l]) => { sax(t + s * d, deg(pb() - 12, dg), l * d * .8, v); sax(t + s * d, deg(pb() - 24, dg), l * d * .8, v * .75); }); } },
+    ]},
+    { family: "Flauta", flute: true, items: [
+      { id: "run",   key: "/", name: "Run",    sub: "charanga cascade", art: art.fluteRun, play: (t, v) => { const d = stepDur() / 2; for (let i = 0; i < 8; i++) flute(t + i * d, deg(pb(), 14 - i), d * .9, v); } },
+      { id: "frase", key: "'", name: "Phrase", sub: "a short call", art: art.flute, play: (t, v) => { const d = stepDur(); PHRASE.forEach(([s, dg, l]) => flute(t + s * d, deg(pb(), dg), l * d * .85, v)); } },
+      { id: "trill", key: "`", name: "Trino",  sub: "a two-beat trill", art: art.trill, play: (t, v) => { const d = stepDur() / 4; for (let i = 0; i < 16; i++) flute(t + i * d, deg(pb(), i % 2 ? 10 : 9), d * .95, v * .9); flute(t + 16 * d, deg(pb(), 9), stepDur() * 1.5, v); } },
+      { id: "fguajeo", fkey: "z", name: "Guajeo",    sub: "the charanga flute figure", art: art.flute,    play: (t, v) => seq(t, v, GUAJEO, .7) },
+      { id: "llamada", fkey: "x", name: "Llamada",   sub: "two flutes call the band in", art: art.fluteDuo, play: (t, v) => { seq(t, v, LLAMADA, .9); seq(t, v * .7, LLAMADA.map(([s, d, l]) => [s, d - 2, l]), .9); } },
+      { id: "cascada", fkey: "c", name: "Cascada",   sub: "two octaves straight down", art: art.fluteRun, play: (t, v) => { const d = stepDur() / 2; for (let i = 0; i <= 14; i++) flute(t + i * d, deg(pb(), 21 - i), d * .9, v * (1 - i * .02)); } },
+      { id: "floreo",  fkey: "v", name: "Floreo",    sub: "run up, trill at the top", art: art.trill,    play: (t, v) => { const d = stepDur() / 2, q = d / 2; for (let i = 0; i < 8; i++) flute(t + i * d, deg(pb(), 7 + i), d * .9, v); const t2 = t + 8 * d; for (let i = 0; i < 8; i++) flute(t2 + i * q, deg(pb(), i % 2 ? 15 : 14), q * .95, v); flute(t2 + 8 * q, deg(pb(), 14), stepDur() * 2, v); } },
+      { id: "adorno",  fkey: "b", name: "Adorno",    sub: "grace notes and a turn", art: art.flute,      play: (t, v) => { const d = stepDur(), q = d / 2; flute(t, deg(pb(), 13), .045, v * .8); flute(t + .045, deg(pb(), 12), d * 1.5, v); [13, 12, 11, 12].forEach((g, i) => flute(t + d * 2 + i * q, deg(pb(), g), q * .9, v)); flute(t + d * 4, deg(pb(), 14), d * 2.5, v); } },
+      { id: "pregon",  fkey: "n", name: "Pregón",    sub: "a high syncopated answer", art: art.fluteRun, play: (t, v) => seq(t, v, PREGON, .85) },
+      { id: "danzon",  fkey: "m", name: "Danzón",    sub: "a slow, singing melody", art: art.fluteDuo,   play: (t, v) => seq(t, v * .85, DANZON, .95) },
+    ]},
+  ];
+  // Phrases as [start in eighths, scale degree from the tonic, length in eighths]; degree 7 is the octave.
+  const GUAJEO = [[0, 11, 1], [1, 9, 1], [2, 11, 1], [3, 12, 1], [4, 11, 1], [5, 9, 1], [6, 7, 1], [7, 9, 1], [9, 11, 1], [10, 12, 1], [11, 14, 1], [12, 12, 1], [13, 11, 1], [14, 9, 2]];
+  const LLAMADA = [[0, 7, 1], [1, 9, 1], [2, 11, 1], [3, 14, 5]];
+  const PREGON = [[0, 14, 1], [1.5, 14, .5], [2, 12, 1], [3, 11, 1.5], [5, 12, .5], [5.5, 11, .5], [6, 9, 2]];
+  const DANZON = [[0, 9, 2], [2, 10, 1], [3, 11, 1], [4, 12, 3], [7, 11, 1], [8, 9, 2], [10, 8, 1], [11, 7, 1], [12, 9, 4]];
+  function seq(t, v, notes, legato) { const d = stepDur(); notes.forEach(([s, dg, l]) => flute(t + s * d, deg(pb(), dg), l * d * legato, v)); }
+
+  // ================= Registration & input =================
+  const reg = {}, keymap = {}, fluteMap = {};
+  let fluteMode = false;
+  const SYM = { ";": "Semicolon", ",": "Comma", ".": "Period", "/": "Slash", "'": "Quote", "[": "BracketLeft", "]": "BracketRight", "-": "Minus", "=": "Equal", "\\": "Backslash", "`": "Backquote" };
+  const codeOf = ch => /[a-z]/.test(ch) ? "Key" + ch.toUpperCase() : /\d/.test(ch) ? "Digit" + ch : SYM[ch];
+  const keyCap = ch => ch === "'" ? "'" : ch.toUpperCase();
+
+  function register(id, key, el, play, opts = {}) {
+    reg[id] = { el, play, ...opts };
+    if (key) (opts.fluteKey ? fluteMap : keymap)[codeOf(key)] = id;
+    el.addEventListener("pointerdown", e => {
+      if (e.button > 0) return;
+      let v = 1;
+      if (opts.drum) v = rimVelocity(el.querySelector(".head"), e);
+      if (e.shiftKey) v *= .35;
+      hit(id, undefined, v, true);
+    });
+    if (opts.hold) ["pointerup", "pointerleave", "pointercancel"].forEach(ev => el.addEventListener(ev, () => release(id)));
+    el.addEventListener("click", e => { if (e.detail === 0) { hit(id, undefined, .9, true); if (opts.hold) setTimeout(() => release(id), 400); } }); // Enter key
+  }
+  function rimVelocity(head, e) {
+    const r = head.getBoundingClientRect();
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    const dx = (x - r.width / 2) / (r.width / 2), dy = (y - r.height / 2) / (r.height / 2);
+    const d = Math.hypot(dx, dy);
+    const v = d > 1.15 ? .8 : .45 + .55 * Math.min(1, d);
+    if (d <= 1.15) {
+      const rp = document.createElement("span"); rp.className = "ripple";
+      const size = r.width * (.4 + .6 * v);
+      Object.assign(rp.style, { left: x + "px", top: y + "px", width: size + "px", height: size + "px" });
+      head.appendChild(rp); setTimeout(() => rp.remove(), 500);
+    }
+    return v;
+  }
+
+  const drumsEl = $("drums");
+  drums.forEach(fam => {
+    const f = document.createElement("div"); f.className = "family";
+    f.innerHTML = `<div class="family-name">${fam.family}</div>`;
+    const pads = document.createElement("div"); pads.className = "family-pads";
+    fam.pads.forEach(p => {
+      const b = document.createElement("button");
+      b.className = "pad"; b.type = "button"; b.setAttribute("aria-label", `${fam.family} ${p.name}, ${p.sub}. Key ${keyCap(p.key)}`);
+      b.innerHTML = `<div class="head ${p.cls || ""}" style="--size:${p.size}px;--s:${p.size}px;--rim:var(${p.rim})"></div>
+        <div class="label"><b>${p.name}</b><small>${p.sub}</small><span class="key">${keyCap(p.key)}</span></div>`;
+      pads.appendChild(b); register(p.id, p.key, b, p.play, { drum: true, sec: "drums" });
+    });
+    f.appendChild(pads); drumsEl.appendChild(f);
+  });
+  function tiles(container, list, sec, opts = {}) {
+    const c = typeof container === "string" ? $(container) : container;
+    list.forEach(p => {
+      const k = p.key || p.fkey;
+      const b = document.createElement("button");
+      b.className = "pad"; b.type = "button";
+      b.setAttribute("aria-label", `${p.name}, ${p.sub}. Key ${keyCap(k)}${p.fkey ? " in flute mode" : ""}`);
+      b.innerHTML = `${p.art}<div class="label"><b>${p.name}</b><small>${p.sub}</small><span class="key${p.fkey ? " kc-flute" : ""}">${keyCap(k)}</span></div>`;
+      c.appendChild(b); register(p.id, k, b, p.play, { sec, ...opts, fluteKey: !!p.fkey });
+    });
+  }
+  tiles("small", small, "small");
+  hornGroups.forEach(g => {
+    const wrap = document.createElement("div"); wrap.className = "hgroup" + (g.flute ? " flute-group" : "");
+    wrap.innerHTML = g.flute ? `<div class="hgroup-head"><div class="family-name">${g.family}</div>
+        <div class="ctl" role="radiogroup" aria-label="What the keyboard plays">
+          <span class="ctl-label">Keyboard</span>
+          <label class="chip"><input type="radio" name="mode" value="piano" id="mode-piano" checked><span>Piano &amp; tres</span></label>
+          <label class="chip"><input type="radio" name="mode" value="flute" id="mode-flute"><span>Flute mode</span></label>
+        </div>
+        <span class="hint">Press <kbd>↑</kbd> for flute mode, <kbd>↓</kbd> for piano. In flute mode, keys 1 to 0 play held flute notes and Z to M play the phrases below.</span>
+      </div>
+      <div class="scroll"><div class="flutebody" id="fluteKeys" aria-label="Flute notes"></div></div>`
+      : `<div class="family-name">${g.family}</div>`;
+    const grid = document.createElement("div"); grid.className = "small-grid";
+    wrap.appendChild(grid); $("horns").appendChild(wrap);
+    tiles(grid, g.items, "horns", { quantize: true });
+  });
+  function setMode(flute) {
+    fluteMode = flute;
+    document.body.classList.toggle("mode-flute", flute);
+    $(flute ? "mode-flute" : "mode-piano").checked = true;
+  }
+  document.querySelectorAll('input[name="mode"]').forEach(r => r.addEventListener("change", () => setMode(r.value === "flute")));
+
+  const pianoKeys = "1234567890", tresKeys = "zxcvbnm", bassKeys = "yuiop";
+  function keysRow(containerId, notes, keys, prefix, fn) {
+    const c = $(containerId); c.innerHTML = "";
+    notes.forEach((m, i) => {
+      const b = document.createElement("button");
+      b.className = "k"; b.type = "button";
+      const nm = NAMES[m % 12];
+      b.setAttribute("aria-label", `${prefix} ${nm}. Key ${keyCap(keys[i])}`);
+      b.innerHTML = `<span class="note">${nm}</span><span class="key">${keyCap(keys[i])}</span>`;
+      c.appendChild(b); register(`${prefix}-${i}`, keys[i], b, (t, v) => fn(t, m, v), { sec: "harmony" });
+    });
+  }
+  function buildHarmony() {
+    const pb = pianoBase(), bb = bassBase();
+    keysRow("piano", Array.from({ length: 10 }, (_, i) => deg(pb, i)), pianoKeys, "piano", piano);
+    keysRow("tres", Array.from({ length: 7 }, (_, i) => deg(pb, i)), tresKeys, "tres", tres);
+    keysRow("bass", Array.from({ length: 5 }, (_, i) => deg(bb, i)), bassKeys, "bass", bassNote);
+    const fk = $("fluteKeys"); fk.innerHTML = "";
+    for (let i = 0; i < 10; i++) {
+      const m = deg(pb, 7 + i), b = document.createElement("button");
+      b.className = "fk"; b.type = "button";
+      b.setAttribute("aria-label", `Flute ${NAMES[m % 12]}. Key ${pianoKeys[i]} in flute mode`);
+      b.innerHTML = `<span class="dot"></span><span class="note">${NAMES[m % 12]}</span><span class="key kc-flute">${pianoKeys[i]}</span>`;
+      fk.appendChild(b);
+      register(`flute-${i}`, pianoKeys[i], b, null, { sec: "horns", hold: true, fluteKey: true, start: (t, v) => fluteStart(t, m, v) });
+    }
+  }
+  buildHarmony();
+
+  // ================= Triggering =================
+  let userE = 0, hornsLitUntil = 0, claveHits = 0;
+  function flash(id) {
+    const el = reg[id] && reg[id].el; if (!el) return;
+    el.classList.remove("hit"); void el.offsetWidth; el.classList.add("hit");
+    clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("hit"), 180);
+  }
+  function hit(id, t, v = 1, user = false) {
+    audio();
+    const r = reg[id]; if (!r) return;
+    let when = t ?? ctx.currentTime + .005;
+    if (user && r.quantize && playing) when = nextGridTime();
+    if (r.hold) { if (r.active) r.active.stop(when); r.active = r.start(when, v); r.el.classList.add("held"); }
+    else r.play(when, v);
+    const delay = Math.max(0, (when - ctx.currentTime) * 1000);
+    if (delay < 8) flash(id); else setTimeout(() => flash(id), delay);
+    if (user) {
+      userE = Math.min(.55, userE + .04 + .05 * v);
+      if (r.sec === "horns") hornsLitUntil = performance.now() + 1600;
+      if (playing) claveCheck(when);
+    }
+  }
+
+  function release(id) {
+    const r = reg[id]; if (!r || !r.active) return;
+    r.active.stop(ctx.currentTime); r.active = null; r.el.classList.remove("held");
+  }
+  const lookup = code => (fluteMode && fluteMap[code]) || keymap[code];
+  document.addEventListener("keydown", e => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.code === "Space") { e.preventDefault(); if (!e.repeat) toggle(); return; }
+    if ((e.code === "ArrowUp" || e.code === "ArrowDown") && !/INPUT|SELECT/.test(e.target.tagName)) {
+      e.preventDefault(); setMode(e.code === "ArrowUp"); return;
+    }
+    const id = lookup(e.code);
+    if (!id) return;
+    e.preventDefault();
+    if (!e.repeat) hit(id, undefined, e.shiftKey ? .35 : .9, true);
+  });
+  document.addEventListener("keyup", e => {
+    if (e.code === "Space") { e.preventDefault(); return; }
+    const id = fluteMap[e.code]; if (id) release(id);
+  });
+  window.addEventListener("blur", () => Object.keys(reg).forEach(release));
+
+  // ================= Styles =================
+  // Steps are eighth notes; one cycle = two bars of 4/4 = one full clave.
+  const LEG = {
+    h: ["conga", .25], s: ["slap", .85], o: ["conga", .9], t: ["tumba", .95], q: ["quinto", .8], Q: ["quinto", .75, .45],
+    m: ["macho", .8], g: ["macho", .3], n: ["hembra", .85],
+    H: ["timhi", .7], L: ["timlo", .8], c: ["cascara", .7], C: ["cascara", .4],
+    B: ["mambo", .75], M: ["mambo", .5], b: ["campana", .55],
+    R: ["guiroL", .35], r: ["guiroS", .3], k: ["maracas", .45], K: ["maracas", .25],
+  };
+  const STYLES = {
+    son: { name: "Son montuno", blurb: "The conjunto sound Arsenio Rodríguez built in the 1940s: anticipated bass tumbao, piano montuno, son clave. The root of salsa.",
+      tempo: [80, 98, 120], clave: "son", flute: "guajeo", on: ["clave", "congas", "guiro", "bass", "piano"],
+      parts: { congas: ["h.s...ot"], bongo: ["mgmnmgmn"], campana: ["B.b.B.bb"], guiro: ["RrRrRrRr"], maracas: ["kKkKkKkK"] }, bass: "tumbao", piano: "montuno" },
+    chacha: { name: "Cha-cha-chá", blurb: "Enrique Jorrín's early-1950s dance, named for the shuffle of dancers' feet on 4-and-1. Steady cowbell and güiro, bass on the downbeats.",
+      tempo: [100, 116, 132], clave: "son", flute: "guajeo", on: ["congas", "campana", "guiro", "bass", "piano", "flute"],
+      parts: { congas: ["h.s.h.ot"], bongo: ["m.gnm.gn"], campana: ["B.b.B.b."], guiro: ["R.rrR.rr"], maracas: ["kKkKkKkK"] }, bass: "chacha", piano: "chacha" },
+    bolero: { name: "Bolero", blurb: "The slow romantic song. Bongó plays a soft martillo, maracas keep eighths, and the piano rolls its chords.",
+      tempo: [60, 72, 90], clave: "son", flute: "sparse", on: ["clave", "bongo", "maracas", "bass", "piano"],
+      parts: { congas: ["h...h.o."], bongo: ["m.gnm.gn"], guiro: ["R...R.r."], maracas: ["kKkKkKkK"] }, bass: "downbeat", piano: "arp" },
+    guaguanco: { name: "Guaguancó", blurb: "Rumba from Havana and Matanzas: three congas talking, palitos on the shell, and rumba clave with its third stroke pushed late.",
+      tempo: [90, 104, 125], clave: "rumba", on: ["clave", "congas", "timbales"], labels: { timbales: "Palitos" },
+      parts: { congas: ["h.s.h.ooh.s.h.s.", "......t.......tt", ".Q.Q..Q.Q.Q..Q.Q"], timbales: ["c.c.cc.cc.c.cc.c"] }, bass: null, piano: null },
+    mambo: { name: "Mambo", blurb: "The big-band mambo of the late '40s and '50s: mambo bell, timbale fills, hard tumbao. Throw in moñas on the trumpets.",
+      tempo: [115, 128, 145], clave: "son", flute: "guajeo", on: ["clave", "congas", "campana", "timbales", "guiro", "bass", "piano"],
+      parts: { congas: ["h.s..oot"], bongo: ["mgmnmgmn"], campana: ["B.M.BM.M.BM.BM.M", "b...b...b...b..."], timbales: ["..............HL"], guiro: ["RrRrRrRr"], maracas: ["kKkKkKkK"] }, bass: "tumbao", piano: "montuno" },
+    danzon: { name: "Danzón", blurb: "Cuba's 19th-century ballroom dance. The cinquillo rides on the timbales, the güiro swings, and the flute takes the melody.",
+      tempo: [80, 92, 110], clave: "son", flute: "danzon", on: ["timbales", "guiro", "bass", "piano", "flute"],
+      parts: { congas: ["h...h.o."], timbales: ["H.cc.cH.c.c.L.L."], guiro: ["R.rrR.rr"] }, bass: "downbeat", piano: "arp" },
+  };
+  const PARTS = [["clave", "Claves"], ["congas", "Congas"], ["bongo", "Bongó"], ["timbales", "Timbales"], ["campana", "Bells"], ["guiro", "Güiro"], ["maracas", "Maracas"], ["bass", "Baby bass"], ["piano", "Piano montuno"], ["flute", "Flauta guajeo"], ["solo", "Flute solo"]];
+  const DRUM_PARTS = ["congas", "bongo", "timbales", "campana", "guiro", "maracas"];
+  const SEC_OF = { clave: "small", congas: "drums", bongo: "drums", timbales: "drums", campana: "small", guiro: "small", maracas: "small", bass: "harmony", piano: "harmony", flute: "horns", solo: "horns" };
+  let styleId = "son", dir = "32";
+  const st = () => STYLES[styleId];
+  const available = p => p === "clave" ? !!st().clave : p === "bass" ? !!st().bass : p === "piano" ? !!st().piano
+    : p === "flute" ? !!st().flute : p === "solo" ? !!st().piano : !!st().parts[p];
+  const on = p => { const el = $("p-" + p); return el.checked && !el.disabled; };
+
+  const stylesEl = $("styles");
+  Object.entries(STYLES).forEach(([id, s]) => {
+    stylesEl.insertAdjacentHTML("beforeend", `<label class="chip style"><input type="radio" name="style" value="${id}" id="s-${id}"${id === styleId ? " checked" : ""}><span>${s.name}</span></label>`);
+  });
+  stylesEl.addEventListener("change", e => applyStyle(e.target.value));
+  const partsEl = $("parts");
+  PARTS.forEach(([id, label]) => partsEl.insertAdjacentHTML("beforeend", `<label class="chip"><input type="checkbox" id="p-${id}"><span id="pl-${id}">${label}</span></label>`));
+
+  const keySel = $("key"), progSel = $("prog");
+  KEYS.forEach(k => keySel.insertAdjacentHTML("beforeend", `<option value="${k}">${NAMES[k]}</option>`));
+  PROGS.forEach((p, i) => progSel.insertAdjacentHTML("beforeend", `<option value="${i}">${p.name}</option>`));
+  keySel.addEventListener("change", () => { keyOff = +keySel.value; harmonyChanged(); });
+  progSel.addEventListener("change", () => { progIdx = +progSel.value; harmonyChanged(); });
+  document.querySelectorAll('input[name="dir"]').forEach(r => r.addEventListener("change", () => { dir = r.value; renderSteps(); }));
+
+  const tempoEl = $("tempo"), tempoOut = $("tempoOut");
+  tempoEl.addEventListener("input", () => tempoOut.textContent = tempoEl.value + " BPM");
+
+  const chordsEl = $("chords");
+  function renderChords() {
+    chordsEl.innerHTML = prog().ch.map((c, i) => `<span class="chord" id="ch-${i}">${chordName(c)}</span>`).join("");
+  }
+  function harmonyChanged() {
+    renderChords(); buildHarmony();
+    $("armNote").textContent = `In ${NAMES[keyOff]} ${prog().minor ? "minor" : "major"}. Notes are named the Cuban way: Do, Re, Mi…`;
+  }
+
+  const stepsEl = $("steps");
+  const stepEls = Array.from({ length: 16 }, (_, i) => {
+    const d = document.createElement("div"); d.className = "step" + (i % 2 === 0 ? " beat" : ""); stepsEl.appendChild(d); return d;
+  });
+  function claveSteps() {
+    const base = st().clave === "rumba" ? [0, 3, 7, 10, 12] : [0, 3, 6, 10, 12];
+    return dir === "23" ? base.map(s => (s + 8) % 16).sort((a, b) => a - b) : base;
+  }
+  function renderSteps() {
+    const cs = claveSteps();
+    stepEls.forEach((el, i) => el.classList.toggle("clave", cs.includes(i)));
+    $("half1").textContent = dir === "32" ? "3 side" : "2 side";
+    $("half2").textContent = dir === "32" ? "2 side" : "3 side";
+    $("claveType").textContent = st().clave === "rumba" ? "Rumba clave" : "Son clave";
+  }
+  function applyStyle(id) {
+    styleId = id; const s = st();
+    $("blurb").innerHTML = `<b>${s.name}</b>${s.blurb}`;
+    tempoEl.min = s.tempo[0]; tempoEl.max = s.tempo[2]; tempoEl.value = s.tempo[1];
+    tempoOut.textContent = s.tempo[1] + " BPM";
+    PARTS.forEach(([p, label]) => {
+      const el = $("p-" + p), ok = available(p);
+      el.disabled = !ok; el.checked = ok && s.on.includes(p);
+      $("pl-" + p).textContent = (s.labels && s.labels[p]) || label;
+    });
+    renderSteps();
+  }
+
+  // ================= Scheduler =================
+  let playing = false, step = 0, cycle = 0, nextTime = 0, timer;
+  const recent = [];
+  function nextGridTime() {
+    const now = ctx.currentTime + .005;
+    const r = recent.find(x => x.t >= now);
+    return r ? r.t : nextTime;
+  }
+  function chordHit(vs, t, vel) { vs.forEach(n => piano(t, n, vel, 1)); }
+  function topHit(n, t) { piano(t, n + 12, .6, 1); piano(t, n, .38, 1); }
+  function playPiano(mode, e, t, ci) {
+    const v = voicing(prog().ch[ci]), vn = voicing(prog().ch[(ci + 1) % 4]);
+    if (mode === "montuno") {
+      if (e === 1 || e === 3) chordHit(v, t, .42);
+      if (e === 2) topHit(v[2], t);
+      if (e === 4) topHit(v[1], t);
+      if (e === 6) topHit(v[0], t);
+      if (e === 7) { chordHit(vn, t, .48); topHit(vn[0], t); } // anticipate the next chord
+    } else if (mode === "chacha") {
+      if ([0, 2, 4, 6, 7].includes(e)) { chordHit(v, t, e === 7 ? .36 : .46); piano(t, v[2] + 12, .32, 1); }
+    } else if (mode === "arp") {
+      const notes = [v[0] - 12, v[0], v[1], v[2], v[0] + 12];
+      piano(t, notes[[0, 1, 2, 3, 4, 3, 2, 1][e]], .42, 1.4);
+    }
+  }
+  function playBass(mode, e, t, ci) {
+    const ch = prog().ch[ci], nx = prog().ch[(ci + 1) % 4];
+    if (mode === "tumbao") { if (e === 3) bassNote(t, bassFifth(ch), .9); if (e === 6) bassNote(t, bassRoot(nx), 1); }
+    else if (mode === "chacha") { if (e === 0) bassNote(t, bassRoot(ch), 1); if (e === 4) bassNote(t, bassFifth(ch), .9); if (e === 6) bassNote(t, bassFifth(ch), .7); }
+    else { if (e === 0) bassNote(t, bassRoot(ch), 1); if (e === 4) bassNote(t, bassFifth(ch), .85); }
+  }
+  function playFluteGuajeo(mode, half, e, t, ci) {
+    const hi = voicing(prog().ch[ci]).map(n => n + 12), d = stepDur();
+    const pat = {
+      guajeo: half ? { 0: [hi[1], 1], 2: [hi[2], 1], 3: [hi[0] + 12, 1], 4: [hi[2], 1], 6: [hi[1], 1], 7: [hi[2], 1] }
+                   : { 1: [hi[2], 1], 2: [hi[1], 1], 3: [hi[2], 1], 5: [hi[0] + 12, 1], 6: [hi[2], 1] },
+      danzon: { 0: [hi[2], 2], 2: [hi[1], 1], 3: [hi[0] + 12, 3], 7: [hi[2], 1] },
+      sparse: half ? { 2: [hi[0] + 12, 4] } : { 0: [hi[2], 4], 4: [hi[1], 3] },
+    }[mode][e];
+    if (pat) flute(t, pat[0], pat[1] * d * .75, mode === "guajeo" ? .5 : .45);
+  }
+  // The soloist: a random walk over the scale that lands on chord tones on the beat, with the odd run.
+  const solo = { d: 9 };
+  function playSolo(e, t, ci) {
+    const d = stepDur(), base = pianoBase();
+    if (e === 6 && Math.random() < .14) {
+      const dir = Math.random() < .5 ? 1 : -1;
+      for (let i = 0; i < 4; i++) { solo.d = Math.max(7, Math.min(17, solo.d + dir)); soloNote(t + i * d / 2, d * .45, .6); }
+      return;
+    }
+    if (Math.random() > (e % 2 === 0 ? .62 : .42)) return;
+    solo.d += [-2, -1, -1, 1, 1, 2][Math.random() * 6 | 0];
+    if (solo.d < 7) solo.d = 8; if (solo.d > 17) solo.d = 15;
+    if (e % 2 === 0) {
+      const pcs = voicing(prog().ch[ci]).map(n => n % 12);
+      for (const off of [0, 1, -1]) if (pcs.includes(deg(base, solo.d + off) % 12)) { solo.d += off; break; }
+    }
+    soloNote(t, d * (Math.random() < .3 ? 1.8 : .8), .55 + Math.random() * .15);
+  }
+  function soloNote(t, dur, v) {
+    flute(t, deg(pianoBase(), solo.d), dur, v);
+    const el = reg["flute-" + (solo.d - 7)] && reg["flute-" + (solo.d - 7)].el;
+    if (el) setTimeout(() => { el.classList.add("hit"); setTimeout(() => el.classList.remove("hit"), Math.min(400, dur * 1000)); }, Math.max(0, (t - ctx.currentTime) * 1000));
+  }
+  const neon = $("neon"), lightsEl = $("lights");
+  function scheduleStep(s, t) {
+    const S = st(), half = s < 8 ? 0 : 1, e = s % 8, ci = (cycle * 2 + half) % 4;
+    recent.push({ t, s }); if (recent.length > 40) recent.shift();
+    if (S.clave && on("clave") && claveSteps().includes(s)) hit("claves", t, .9);
+    for (const p of DRUM_PARTS) {
+      const lines = S.parts[p]; if (!lines || !on(p)) continue;
+      for (const line of lines) {
+        const L = LEG[line[s % line.length]]; if (!L) continue;
+        if (L[2] !== undefined && Math.random() > L[2]) continue;
+        hit(L[0], t, L[1] * (.9 + Math.random() * .2));
+      }
+    }
+    if (S.bass && on("bass")) playBass(S.bass, e, t, ci);
+    if (S.piano && on("piano")) playPiano(S.piano, e, t, ci);
+    if (S.flute && on("flute")) playFluteGuajeo(S.flute, half, e, t, ci);
+    if (on("solo")) playSolo(e, t, ci);
+    setTimeout(() => {
+      if (!playing) return;
+      stepEls.forEach((el, i) => el.classList.toggle("now", i === s));
+      if (chordNow !== ci || s === 0) { chordNow = ci; chordsEl.querySelectorAll(".chord").forEach((c, i) => c.classList.toggle("now", i === ci)); }
+      if (e % 2 === 0) {
+        neon.classList.remove("pulse"); void neon.offsetWidth; neon.classList.add("pulse");
+        lightsEl.classList.add("beat"); setTimeout(() => lightsEl.classList.remove("beat"), 110);
+      }
+    }, Math.max(0, (t - ctx.currentTime) * 1000));
+  }
+  function tick() {
+    while (nextTime < ctx.currentTime + .12) {
+      scheduleStep(step, nextTime);
+      nextTime += stepDur();
+      step = (step + 1) % 16; if (step === 0) cycle++;
+    }
+  }
+  const playBtn = $("play"), playIcon = $("playIcon"), playLabel = $("playLabel");
+  function toggle() {
+    audio();
+    playing = !playing;
+    playBtn.setAttribute("aria-pressed", playing);
+    playIcon.setAttribute("d", playing ? "M2 1 H5.5 V13 H2 Z M8.5 1 H12 V13 H8.5 Z" : "M2 1 L13 7 L2 13 Z");
+    playLabel.textContent = playing ? "Stop the band" : "Start the band";
+    if (playing) { step = 0; cycle = 0; recent.length = 0; nextTime = ctx.currentTime + .06; tick(); timer = setInterval(tick, 25); }
+    else {
+      clearInterval(timer); chordNow = 0;
+      stepEls.forEach(el => el.classList.remove("now"));
+      chordsEl.querySelectorAll(".chord").forEach(c => c.classList.remove("now"));
+    }
+  }
+  playBtn.addEventListener("click", () => { toggle(); playBtn.blur(); });
+
+  // ================= Clave check =================
+  const checkEl = $("check"), checkText = $("checkText");
+  function claveCheck(t) {
+    let best = null, bd = Infinity;
+    for (const r of recent) { const d = Math.abs(r.t - t); if (d < bd) { bd = d; best = r; } }
+    if (!best || bd > stepDur() * .5) return;
+    const onGrid = bd < .07, onClave = onGrid && claveSteps().includes(best.s);
+    if (onClave) claveHits++;
+    checkEl.className = "check " + (onClave ? "good" : onGrid ? "near" : "");
+    checkText.textContent = onClave ? `¡En clave! ${claveHits} hit${claveHits === 1 ? "" : "s"} on a clave stroke`
+      : onGrid ? "On the beat, between clave strokes" : "Between beats. Try to land on a clave stroke";
+    const el = stepEls[best.s], cls = onClave ? "you-good" : "you";
+    setTimeout(() => { el.classList.add(cls); setTimeout(() => el.classList.remove(cls), 220); }, Math.max(0, (best.t - ctx.currentTime) * 1000));
+  }
+
+  // ================= Room lights =================
+  const BULBS = 18, colors = ["--mango", "--flamingo", "--mint", "--sky"];
+  const order = Array.from({ length: BULBS }, (_, i) => i).sort((a, b) => ((a * 7) % BULBS) - ((b * 7) % BULBS));
+  const bulbs = Array.from({ length: BULBS }, (_, i) => {
+    const x = (i + .5) / BULBS, u = (x * 2) % 1;
+    const b = document.createElement("div"); b.className = "bulb";
+    b.style.left = x * 100 + "%"; b.style.top = (4 + 24 * 4 * u * (1 - u)) + "px";
+    b.style.setProperty("--c", `var(${colors[i % 4]})`);
+    lightsEl.appendChild(b); return b;
+  });
+  const stages = [...document.querySelectorAll(".stage[data-sec]")];
+  setInterval(() => {
+    userE *= .88;
+    const avail = PARTS.filter(([p]) => available(p)), active = avail.filter(([p]) => on(p));
+    const base = playing ? active.length / Math.max(1, avail.length) : 0;
+    const energy = Math.min(1, .12 + base * .75 + userE);
+    document.documentElement.style.setProperty("--energy", energy.toFixed(3));
+    const lit = Math.round(energy * BULBS);
+    order.forEach((idx, rank) => bulbs[idx].classList.toggle("on", rank < lit));
+    const now = performance.now();
+    stages.forEach(sEl => {
+      const sec = sEl.dataset.sec;
+      const isLit = (sec === "horns" && now < hornsLitUntil) || (playing && active.some(([p]) => SEC_OF[p] === sec));
+      sEl.classList.toggle("lit", isLit);
+    });
+  }, 120);
+
+  applyStyle(styleId);
+  harmonyChanged();
+})();
+</script>
+</body>
+</html>
